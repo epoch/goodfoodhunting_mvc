@@ -1,0 +1,12 @@
+<h1>show dish details for <%= dish["name"] %> </h1>
+
+<img src="<%= dish["image_url"] %>">
+
+
+<form action="/dishes" method="post">
+  <input type="hidden" name="id" value="<%= dish["id"] %>">
+  <input type="hidden" name="_method" value="delete">
+  <button>delete</button>
+</form>
+
+<a href="/dishes/<%= dish["id"] %>/edit">edit</a>
