@@ -7,6 +7,18 @@
   <link rel="stylesheet" href="/style.css">
 </head>
 <body>
+
+  <% if logged_in? %>
+    logged in as <%#= current_user()['email'] %>
+    logged in as <%= find_one_user_by_id(session[:user_id])['email'] %>
+    <form action="/logout" method="post">
+      <input type="hidden" name="_method" value="delete">
+      <button>logout</button>
+    </form>
+  <% end %>
+  
+
+
   <%= yield %>
 </body>
 </html>
