@@ -13,18 +13,18 @@ enable :sessions # plural - this is a sinatra feature
 
 get '/' do
   dishes = all_dishes()
-  erb(:index, locals: { dishes: dishes })
+  erb(:'/dishes/index', locals: { dishes: dishes })
 end
 
 get '/dishes/new' do
-  erb(:new)
+  erb(:'/dishes/new')
 end
 
 get '/dishes/:id' do
   dish = find_one_dish_by_id(params[:id])
   user = find_one_user_by_id(dish["user_id"])
 
-  erb(:show, locals: { dish: dish, user: user } )
+  erb(:'/dishes/show', locals: { dish: dish, user: user } )
 end
 
 post '/dishes' do
@@ -43,7 +43,7 @@ end
 get '/dishes/:id/edit' do
   dish = find_one_dish_by_id(params[:id])
   
-  erb(:edit, locals: { dish: dish })
+  erb(:'/dishes/edit', locals: { dish: dish })
 end
 
 patch '/dishes' do
@@ -62,7 +62,7 @@ get '/donate' do
 end
 
 get '/login' do
-  erb :login
+  erb :'/sessions/login'
 end
 
 post '/login' do
@@ -72,7 +72,7 @@ post '/login' do
     session[:user_id] = user['id'] # write down that this user is logged in
     redirect "/"
   else
-    erb :login
+    erb :'/sessions/login'
   end
 end
 
