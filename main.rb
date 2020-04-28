@@ -4,25 +4,11 @@ require 'sinatra/reloader' # only reloads main.rb
 require 'pg' # to connect to the db
 require 'pry'
 
-
-# lib.rb
-# require_relative 'view_helpers'
-
-require_relative 'models/dish'
 require_relative 'models/user'
+require_relative 'models/dish'
+require_relative 'lib'
 
 enable :sessions # plural - this is a sinatra feature
-
-# helper method
-# predicate method
-def logged_in? # return a boolean
-  # !!session[:user_id]
-  if session[:user_id] # -> convert to a boolean 
-    true
-  else
-    false
-  end
-end
 
 
 get '/' do
@@ -45,11 +31,7 @@ post '/dishes' do
   # guard condition
   redirect "/login" unless logged_in?
 
-  # if !logged_in?
-  #   redirect "/login"
-  # end
-
-  create_dish(params[:name], params[:image_url])
+  create_dish(params[:name], params[:image_url], current_user['id'])
   redirect "/"
 end
 
@@ -103,3 +85,12 @@ delete '/logout' do
   # login page may be????
   redirect "/login"
 end
+
+
+# 1. helpers - DONE
+# 2. posting new dish - MISSING THING - DONE
+# 3. organizing files
+# 4. hackers - horrible - security - user inputs - never trust it
+# 5. strings
+# 6. deployment
+
